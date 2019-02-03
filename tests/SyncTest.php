@@ -172,6 +172,21 @@ class SyncTest extends TestCase
         $this->assertTrue(false);
     }
 
+    public function testItUsesGetMapping()
+    {
+        $target = [];
+        $source = ['a' => 1];
+        $sync = new class extends Sync {
+            public function getMapping()
+            {
+                return ['a'];
+            }
+        };
+        $sync->init(compact('target', 'source'));
+        $sync->sync();
+        $this->assertEquals(1, $sync->getTarget()['a']);
+    }
+
     protected function setUp()
     {
         parent::setUp();

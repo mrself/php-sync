@@ -27,7 +27,6 @@ class Sync
 	protected $target;
 
     /**
-     * @Option()
      * @var array|string[]
      */
 	protected $mapping;
@@ -79,7 +78,8 @@ class Sync
                 'target'=> ['array', 'object'],
             ],
             'defaults' => [
-                'validator' => null
+                'validator' => null,
+                'mapping' => []
             ]
         ];
     }
@@ -95,6 +95,7 @@ class Sync
      */
     public function sync()
     {
+        $this->defineMapping();
         foreach ($this->mapping as $keyTo => $keyFrom) {
             $this->formatKeys($keyTo, $keyFrom);
             $this->syncField($keyFrom, $keyTo);
@@ -168,6 +169,17 @@ class Sync
 
     protected function onValidate()
     {
+    }
+
+    protected function defineMapping()
+    {
+        if (method_exists($this, 'getMapping')) {
+            if (empty($this->mapping)) {
+                $this->mapping = $this->getMapping();
+            } else {
+                throw new \RuntimeException('#getMapping() exists but mapping was also given through options. Do not use both ways.');
+            }
+        }
     }
 
     /**
