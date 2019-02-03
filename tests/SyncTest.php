@@ -2,8 +2,15 @@
 
 namespace Mrself\Sync\Tests;
 
+use Mrself\Sync\ValidationException;
+use Symfony\Component\Validator\Constraints as Assert;
+use Mrself\Container\Container;
+use Mrself\Container\Registry\ContainerRegistry;
 use Mrself\Sync\Sync;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SyncTest extends TestCase
 {
@@ -118,5 +125,69 @@ class SyncTest extends TestCase
         $sync = Sync::make(compact('target', 'source', 'mapping'));
         $sync->sync();
         $this->assertEquals(1, $sync->getTarget()['a']);
+    }
+
+    public function testItValidates()
+    {
+        $this->addValidator();
+        $target = new class {
+            /**
+             * @Assert\NotBlank()
+             */
+            public $b;
+        };
+        $source = (object) ['a' => 1];
+        $mapping = ['a'];
+        $validate = true;
+        $sync = Sync::make(compact('target', 'source', 'mapping', 'validate'));
+        $sync->sync();
+        $this->assertCount(1, $sync->getErrors());
+        /** @var ConstraintViolation $error */
+        $error = $sync->getErrors()[0];
+        $this->assertInstanceOf(Assert\NotBlank::class, $error->getConstraint());
+        $this->assertEquals(1, $sync->getTarget()->a);
+    }
+
+    public function testItThrowsValidationErrors()
+    {
+        $this->addValidator();
+        $target = new class {
+            /**
+             * @Assert\NotBlank()
+             */
+            public $b;
+        };
+        $source = (object) ['a' => 1];
+        $mapping = ['a'];
+        $validate = true;
+        $validationExceptions = true;
+        $sync = Sync::make(compact('target', 'source', 'mapping', 'validate',
+            'validationExceptions'));
+        try {
+            $sync->sync();
+        } catch (ValidationException $e) {
+            $this->assertEquals($sync->getErrors(), $e->getErrors());
+            return;
+        }
+        $this->assertTrue(false);
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        ContainerRegistry::reset();
+        $container = Container::make();
+        ContainerRegistry::add('Mrself\\Sync', $container);
+    }
+
+    protected function addValidator()
+    {
+        $validator = Validation::createValidatorBuilder()
+            ->enableAnnotationMapping()
+            ->getValidator();
+        ContainerRegistry::get('Mrself\\Sync')->set(
+            ValidatorInterface::class,
+            $validator
+        );
     }
 }

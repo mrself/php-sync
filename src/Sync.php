@@ -3,9 +3,12 @@
 namespace Mrself\Sync;
 
 use ICanBoogie\Inflector;
+use Mrself\Container\Registry\ContainerRegistry;
 use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
 use Mrself\Property\Property;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Sync
 {
@@ -30,6 +33,23 @@ class Sync
 	protected $mapping;
 
     /**
+     * @Option()
+     * @var bool
+     */
+	protected $validate = false;
+
+    /**
+     * @Option()
+     * @var bool
+     */
+	protected $validationExceptions = false;
+
+    /**
+     * @var ValidatorInterface
+     */
+	protected $validator;
+
+    /**
      * @var Inflector
      */
 	protected $inflector;
@@ -38,6 +58,11 @@ class Sync
      * @var Property
      */
 	protected $property;
+
+    /**
+     * @var ConstraintViolationListInterface
+     */
+	protected $errors;
 
     public function __construct()
     {
@@ -51,7 +76,10 @@ class Sync
             'allowedTypes' => [
                 'mapping' => 'array',
                 'source'=> ['array', 'object'],
-                'target'=> ['array', 'object']
+                'target'=> ['array', 'object'],
+            ],
+            'defaults' => [
+                'validator' => null
             ]
         ];
     }
@@ -62,6 +90,8 @@ class Sync
      * @throws \Mrself\Property\InvalidTargetException
      * @throws \Mrself\Property\NonValuePathException
      * @throws \Mrself\Property\NonexistentKeyException
+     * @throws ValidationException
+     * @throws \Mrself\Container\Registry\NotFoundException
      */
     public function sync()
     {
@@ -70,6 +100,8 @@ class Sync
             $this->syncField($keyFrom, $keyTo);
 		}
         $this->onSync();
+        $this->validate();
+        $this->onValidate();
 	}
 
     protected function formatKeys(&$keyTo, string &$keyFrom)
@@ -114,10 +146,40 @@ class Sync
     }
 
     /**
+     * @throws ValidationException
+     * @throws \Mrself\Container\Registry\NotFoundException
+     */
+    protected function validate()
+    {
+        if (!$this->validate) {
+            return;
+        }
+        $container = ContainerRegistry::get('Mrself\\Sync');
+        if (!$container->has(ValidatorInterface::class)) {
+            throw new \RuntimeException('Validator service is not specified for the container');
+        }
+        /** @var ValidatorInterface $validator */
+        $validator = $container->get(ValidatorInterface::class);
+        $this->errors = $validator->validate($this->target);
+        if ($this->validationExceptions) {
+            throw new ValidationException($this->errors);
+        }
+    }
+
+    protected function onValidate()
+    {
+    }
+
+    /**
      * @return mixed
      */
     public function getTarget()
     {
         return $this->target;
+    }
+
+    public function getErrors(): ?ConstraintViolationListInterface
+    {
+        return $this->errors;
     }
 }
