@@ -127,8 +127,8 @@ class Sync
         $keyTo = $this->formatEachKey($keyTo);
         $this->formatEach($keyTo, $value);
         $formatMethod = 'format' . $this->inflector->camelize($keyTo);
-        if (method_exists($this->target, $formatMethod)) {
-            $value = $this->target->$formatMethod($value);
+        if (method_exists($this, $formatMethod)) {
+            $value = $this->$formatMethod($value);
         }
         $this->property->setByKey($this->target, $keyTo, $value);
     }

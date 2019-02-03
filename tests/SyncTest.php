@@ -31,19 +31,18 @@ class SyncTest extends TestCase
 
     public function testFormatMethodIsUsed()
     {
-        $target = new class {
-            public $a;
-
+        $target = [];
+        $source = ['a' => 1];
+        $mapping = ['a'];
+        $sync = new class extends Sync {
             public function formatA($value)
             {
                 return $value + 1;
             }
         };
-        $source = ['a' => 1];
-        $mapping = ['a'];
-        $sync = Sync::make(compact('target', 'source', 'mapping'));
+        $sync->init(compact('target', 'source', 'mapping'));
         $sync->sync();
-        $this->assertEquals(2, $target->a);
+        $this->assertEquals(2, $sync->getTarget()['a']);
     }
 
     public function testOnSyncIsCalled()
