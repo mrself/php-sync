@@ -14,7 +14,7 @@
     "icanboogie/inflector": "^1.4",
     "mrself/property": "^1.0",
     "symfony/validator": "^4.2",
-    "mrself/options": "^2.4.0"
+    "mrself/options": "^2.4.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^7.5",
