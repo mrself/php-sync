@@ -53,4 +53,26 @@ class ToArrayTest extends TestCase
         $fields = $object->toArray();
         $this->assertEquals('value', $fields['field']);
     }
+
+    public function testItIgnoresAttributes()
+    {
+        $object = new class {
+            use \Mrself\Sync\SyncTrait;
+
+            protected $field;
+            public $field1;
+
+            public function getField()
+            {
+                return 'value';
+            }
+
+            protected function getIgnoredExportKeys(): array
+            {
+                return ['field1'];
+            }
+        };
+        $fields = $object->toArray();
+        $this->assertEquals(['field' => 'value'], $fields);
+    }
 }
