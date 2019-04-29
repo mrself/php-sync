@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4c3a917efc866edb95da741a20f360b",
+    "content-hash": "f0edaa1e07e301cb455547523f6f3862",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -246,16 +246,16 @@
         },
         {
             "name": "mrself/property",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-property.git",
-                "reference": "f2ef9684f8e49889ffb09fe7db7459087f2ddbcd"
+                "reference": "de1a6f8792bb0291eaa84dfdb369f74095590317"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-property/zipball/f2ef9684f8e49889ffb09fe7db7459087f2ddbcd",
-                "reference": "f2ef9684f8e49889ffb09fe7db7459087f2ddbcd",
+                "url": "https://api.github.com/repos/mrself/php-property/zipball/de1a6f8792bb0291eaa84dfdb369f74095590317",
+                "reference": "de1a6f8792bb0291eaa84dfdb369f74095590317",
                 "shasum": ""
             },
             "require": {
@@ -274,7 +274,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-02-03T13:47:00+00:00"
+            "time": "2019-04-29T15:42:36+00:00"
         },
         {
             "name": "mrself/util",
