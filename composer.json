@@ -12,7 +12,7 @@
   },
   "require": {
     "icanboogie/inflector": "^1.4",
-    "mrself/property": "^1.1",
+    "mrself/property": "^1.2",
     "symfony/validator": "^4.2",
     "mrself/options": "^2.4.1"
   },

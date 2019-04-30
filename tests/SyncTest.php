@@ -186,6 +186,21 @@ class SyncTest extends TestCase
         $this->assertEquals(1, $sync->getTarget()['a']);
     }
 
+    public function testItIgnoreMissedIfSuchOptionIsSet()
+    {
+        $target = (object) [];
+        $source = new class {
+            protected $b;
+            public $a = 1;
+        };
+        $mapping = ['a', 'b'];
+        $ignoreMissed = true;
+        $sync = new class extends Sync {};
+        $sync->init(compact('target', 'source', 'mapping', 'ignoreMissed'));
+        $sync->sync();
+        $this->assertEquals(1, $target->a);
+    }
+
     protected function setUp()
     {
         parent::setUp();

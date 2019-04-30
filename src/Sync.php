@@ -63,6 +63,11 @@ class Sync
      */
 	protected $errors;
 
+    /**
+     * @var boolean
+     */
+	protected $ignoreMissed;
+
     public function __construct()
     {
         $this->property = Property::make();
@@ -76,10 +81,12 @@ class Sync
                 'mapping' => 'array',
                 'source'=> ['array', 'object'],
                 'target'=> ['array', 'object'],
+                'ignoreMissed' => ['bool']
             ],
             'defaults' => [
                 'validator' => null,
-                'mapping' => []
+                'mapping' => [],
+                'ignoreMissed' => false
             ]
         ];
     }
@@ -123,6 +130,10 @@ class Sync
      */
     protected function syncField(string $keyFrom, string $keyTo)
     {
+        if ($this->ignoreMissed && !$this->property->canGet($this->source, $keyFrom)) {
+            return;
+        }
+
         $value = $this->property->get($this->source, $keyFrom);
         $keyTo = $this->formatEachKey($keyTo);
         $this->formatEach($keyTo, $value);
