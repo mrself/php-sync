@@ -186,6 +186,25 @@ class SyncTest extends TestCase
         $this->assertEquals(1, $sync->getTarget()['a']);
     }
 
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testItThrowsExceptionIfGetMappingExistsAndMappingOptionExists()
+    {
+        $target = [];
+        $source = ['a' => 1];
+        $mapping = ['a'];
+        $sync = new class extends Sync {
+            public function getMapping()
+            {
+                return ['a'];
+            }
+        };
+        $sync->init(compact('target', 'source', 'mapping'));
+        $sync->sync();
+        $this->assertEquals(1, $sync->getTarget()['a']);
+    }
+
     public function testItIgnoreMissedIfSuchOptionIsSet()
     {
         $target = (object) [];
