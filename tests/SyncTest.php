@@ -220,6 +220,22 @@ class SyncTest extends TestCase
         $this->assertEquals(1, $target->a);
     }
 
+    public function testSourceIsUsedAsMappingIfMappingOptionsIsEmpty()
+    {
+        $target = [];
+        $source = ['a' => 1];
+        $mapping = [];
+        $sync = new class extends Sync {
+            public function getMapping()
+            {
+                return ['a'];
+            }
+        };
+        $sync->init(compact('target', 'source', 'mapping'));
+        $sync->sync();
+        $this->assertEquals(1, $sync->getTarget()['a']);
+    }
+
     protected function setUp()
     {
         parent::setUp();

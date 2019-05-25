@@ -103,13 +103,26 @@ class Sync
     public function sync()
     {
         $this->defineMapping();
-        foreach ($this->mapping as $keyTo => $keyFrom) {
-            $this->formatKeys($keyTo, $keyFrom);
-            $this->syncField($keyFrom, $keyTo);
-		}
+        $this->runMapping();
         $this->onSync();
         $this->validate();
         $this->onValidate();
+	}
+
+    protected function runMapping()
+    {
+        if (!$this->mapping) {
+            foreach ($this->source as $key => $value) {
+                $this->formatKeys($key, $key);
+                $this->syncField($key, $key);
+            }
+            return;
+        }
+
+        foreach ($this->mapping as $keyTo => $keyFrom) {
+            $this->formatKeys($keyTo, $keyFrom);
+            $this->syncField($keyFrom, $keyTo);
+        }
 	}
 
     protected function formatKeys(&$keyTo, string &$keyFrom)
