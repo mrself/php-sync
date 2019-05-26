@@ -25,7 +25,7 @@ class Sync
      * @Option()
      * @var mixed
      */
-	protected $target;
+	protected $target = [];
 
     /**
      * @var array|string[]

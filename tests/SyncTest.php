@@ -236,6 +236,15 @@ class SyncTest extends TestCase
         $this->assertEquals(1, $sync->getTarget()['a']);
     }
 
+    public function testTargetCanBeMissed()
+    {
+        $source = ['a' => 1];
+        $mapping = ['a'];
+        $sync = Sync::make(compact('source', 'mapping'));
+        $sync->sync();
+        $this->assertEquals(1, $sync->getTarget()['a']);
+    }
+
     protected function setUp()
     {
         parent::setUp();
