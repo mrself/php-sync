@@ -4,6 +4,7 @@ namespace Mrself\Sync;
 
 use ICanBoogie\Inflector;
 use Mrself\Container\Registry\ContainerRegistry;
+use Mrself\DataTransformers\DataTransformers;
 use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
 use Mrself\Property\Property;
@@ -30,6 +31,11 @@ class Sync
      * @var array|string[]
      */
 	protected $mapping;
+
+    /**
+     * @var array
+     */
+	protected $transformers;
 
     /**
      * @Option()
@@ -68,6 +74,11 @@ class Sync
      */
 	protected $ignoreMissed;
 
+    /**
+     * @var DataTransformers
+     */
+	protected $dataTransformers;
+
     public function __construct()
     {
         $this->property = Property::make();
@@ -81,9 +92,11 @@ class Sync
                 'mapping' => 'array',
                 'source'=> ['array', 'object'],
                 'target'=> ['array', 'object'],
+                'transformers' => 'array',
                 'ignoreMissed' => ['bool']
             ],
             'defaults' => [
+                'transformers' => [],
                 'validator' => null,
                 'mapping' => [],
                 'ignoreMissed' => false
@@ -113,14 +126,12 @@ class Sync
     {
         if (!$this->mapping) {
             foreach ($this->source as $key => $value) {
-                $this->formatKeys($key, $key);
                 $this->syncField($key, $key);
             }
             return;
         }
 
         foreach ($this->mapping as $keyTo => $keyFrom) {
-            $this->formatKeys($keyTo, $keyFrom);
             $this->syncField($keyFrom, $keyTo);
         }
 	}
@@ -141,8 +152,9 @@ class Sync
      * @throws \Mrself\Property\NonValuePathException
      * @throws \Mrself\Property\NonexistentKeyException
      */
-    protected function syncField(string $keyFrom, string $keyTo)
+    protected function syncField($keyFrom, $keyTo)
     {
+        $this->formatKeys($keyTo, $keyFrom);
         if ($this->ignoreMissed && !$this->property->canGet($this->source, $keyFrom)) {
             return;
         }
@@ -154,6 +166,7 @@ class Sync
         if (method_exists($this, $formatMethod)) {
             $value = $this->$formatMethod($value);
         }
+        $value = $this->transformValue($keyTo, $value);
         $this->property->setByKey($this->target, $keyTo, $value);
     }
 
@@ -164,6 +177,16 @@ class Sync
     protected function formatEachKey(string $key)
     {
         return $key;
+    }
+
+    protected function transformValue($key, $value)
+    {
+        if (!array_key_exists($key, $this->transformers)) {
+            return $value;
+        }
+
+        return $this->dataTransformers
+            ->applyTransformers($value, $this->transformers[$key]);
     }
 
     protected function onSync()
@@ -204,6 +227,11 @@ class Sync
                 throw new \RuntimeException('#getMapping() exists but mapping was also given through options. Do not use both ways.');
             }
         }
+    }
+
+    protected function onInit()
+    {
+        $this->dataTransformers = DataTransformers::make();
     }
 
     /**
