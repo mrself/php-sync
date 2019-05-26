@@ -79,6 +79,16 @@ class Sync
      */
 	protected $dataTransformers;
 
+    /**
+     * @var array
+     */
+	protected $meta = [];
+
+    /**
+     * @var mixed
+     */
+	protected $originalSource;
+
     public function __construct()
     {
         $this->property = Property::make();
@@ -116,6 +126,8 @@ class Sync
     public function sync()
     {
         $this->defineMapping();
+        $this->parseMapping();
+        $this->defineSource();
         $this->runMapping();
         $this->onSync();
         $this->validate();
@@ -134,6 +146,29 @@ class Sync
         foreach ($this->mapping as $keyTo => $keyFrom) {
             $this->syncField($keyFrom, $keyTo);
         }
+	}
+
+    protected function parseMapping()
+    {
+        if (!array_key_exists('mapping', $this->mapping)) {
+            return;
+        }
+
+        if (array_key_exists('meta', $this->mapping)) {
+            $this->meta = $this->mapping['meta'];
+        }
+
+        $this->mapping = $this->mapping['mapping'];
+	}
+
+    protected function defineSource()
+    {
+        $this->originalSource = $this->source;
+
+        if (!array_key_exists('path', $this->meta)) {
+            return;
+        }
+        $this->source = $this->property->get($this->source, $this->meta['path']);
 	}
 
     protected function formatKeys(&$keyTo, string &$keyFrom)
