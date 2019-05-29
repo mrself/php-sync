@@ -25,6 +25,18 @@ class TransformersTest extends TestCase
         $this->assertEquals('a', $sync->getTarget()['a']);
     }
 
+    public function testTransformersAreAppliedInSourceString()
+    {
+        $source = ['a' => 'ab'];
+        $mapping = ['a' => 'a|first'];
+        $sync = Sync::make(compact(
+            'source',
+            'mapping'
+        ));
+        $sync->sync();
+        $this->assertEquals('a', $sync->getTarget()['a']);
+    }
+
     protected function setUp()
     {
         parent::setUp();
