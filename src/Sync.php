@@ -171,10 +171,13 @@ class Sync
         $this->source = $this->property->get($this->source, $this->meta['path']);
 	}
 
-    protected function formatKeys(&$keyTo, string &$keyFrom)
+    protected function formatKeys(&$keyTo, &$keyFrom)
     {
         if (is_int($keyTo)) {
             $keyTo = $keyFrom;
+        } else {
+            $parts = explode(':', $keyTo);
+            $keyTo = $parts[0];
         }
 	}
 
@@ -189,12 +192,13 @@ class Sync
      */
     protected function syncField($keyFrom, $keyTo)
     {
+        $targetKey = $keyTo;
         $this->formatKeys($keyTo, $keyFrom);
         if ($this->ignoreMissed && !$this->property->canGet($this->source, $keyFrom)) {
             return;
         }
 
-        $value = $this->property->get($this->source, $keyFrom);
+        $value = $this->get($keyFrom, $targetKey);
         $keyTo = $this->formatEachKey($keyTo);
         $this->formatEach($keyTo, $value);
         $formatMethod = 'format' . $this->inflector->camelize($keyTo);
@@ -203,6 +207,30 @@ class Sync
         }
         $value = $this->transformValue($keyTo, $value);
         $this->property->setByKey($this->target, $keyTo, $value);
+    }
+
+    protected function get($keyFrom, $keyTo)
+    {
+        if (is_array($keyFrom)) {
+            $key = $this->defineSourceKey($keyTo);
+            $sync = static::make([
+                'source' => $this->property->get($this->source, $key),
+                'mapping' => $keyFrom
+            ]);
+            $sync->sync();
+            return $sync->getTarget();
+        }
+
+        return $this->property->get($this->source, $keyFrom);
+    }
+
+    protected function defineSourceKey(string $key)
+    {
+        $parts = explode(':', $key);
+        if (count($parts) === 2) {
+            return $parts[1];
+        }
+        return $parts[0];
     }
 
     protected function formatEach(string &$key, &$value)
