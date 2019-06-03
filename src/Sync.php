@@ -132,6 +132,7 @@ class Sync
         $this->onSync();
         $this->validate();
         $this->onValidate();
+        return $this->target;
 	}
 
     protected function runMapping()
