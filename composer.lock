@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c35d6cc6b5373bd3464c447cc0c5758",
+    "content-hash": "656e65ed5fe8b7fc47f65ae249242117",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -212,16 +212,16 @@
         },
         {
             "name": "mrself/data-transformers",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-data-transformers.git",
-                "reference": "fbd04b6d24e9e3a9ab524adc264cd036387200f8"
+                "reference": "28bdfc0ac228023b6b97d7659567b3c44a46929f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-data-transformers/zipball/fbd04b6d24e9e3a9ab524adc264cd036387200f8",
-                "reference": "fbd04b6d24e9e3a9ab524adc264cd036387200f8",
+                "url": "https://api.github.com/repos/mrself/php-data-transformers/zipball/28bdfc0ac228023b6b97d7659567b3c44a46929f",
+                "reference": "28bdfc0ac228023b6b97d7659567b3c44a46929f",
                 "shasum": ""
             },
             "require": {
@@ -240,7 +240,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-05-26T12:56:53+00:00"
+            "time": "2019-06-13T07:27:03+00:00"
         },
         {
             "name": "mrself/options",
