@@ -195,11 +195,19 @@ class Sync
     {
         $targetKey = $keyTo;
         $this->formatKeys($keyTo, $keyFrom);
-        if ($this->ignoreMissed && !$this->property->canGet($this->source, $keyFrom)) {
-            return;
+        if (!$this->property->canGet($this->source, $keyFrom)) {
+            $defaultMethod = 'getDefault' . $this->inflector->camelize($keyTo);
+            if (method_exists($this, $defaultMethod)) {
+                $value = $this->$defaultMethod();
+            } elseif ($this->ignoreMissed) {
+                return;
+            } else {
+                $value = $this->get($keyFrom, $targetKey);
+            }
+        } else {
+            $value = $this->get($keyFrom, $targetKey);
         }
 
-        $value = $this->get($keyFrom, $targetKey);
         $keyTo = $this->formatEachKey($keyTo);
         $this->formatEach($keyTo, $value);
         $formatMethod = 'format' . $this->inflector->camelize($keyTo);

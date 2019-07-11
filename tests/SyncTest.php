@@ -245,6 +245,21 @@ class SyncTest extends TestCase
         $this->assertEquals(1, $sync->getTarget()['a']);
     }
 
+    public function testDefaultValueIsUsedIfItSet()
+    {
+        $source = [];
+        $mapping = ['a'];
+        $sync = new class extends Sync {
+            public function getDefaultA()
+            {
+                return 1;
+            }
+        };
+        $sync = $sync->init(compact('source', 'mapping'));
+        $sync->sync();
+        $this->assertEquals(1, $sync->getTarget()['a']);
+    }
+
     protected function setUp()
     {
         parent::setUp();
