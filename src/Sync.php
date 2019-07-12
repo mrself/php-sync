@@ -125,6 +125,7 @@ class Sync
      */
     public function sync()
     {
+        $this->beforeSync();
         $this->defineMapping();
         $this->parseMapping();
         $this->defineSource();
@@ -133,6 +134,10 @@ class Sync
         $this->validate();
         $this->onValidate();
         return $this->target;
+	}
+
+    protected function beforeSync()
+    {
 	}
 
     protected function runMapping()
