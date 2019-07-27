@@ -205,6 +205,37 @@ class SyncTest extends TestCase
         $this->assertEquals(1, $sync->getTarget()['a']);
     }
 
+    /**
+     * @expectedException \RuntimeException
+     * @throws ValidationException
+     * @throws \Mrself\Container\Registry\NotFoundException
+     * @throws \Mrself\Options\UndefinedContainerException
+     * @throws \Mrself\Property\EmptyPathException
+     * @throws \Mrself\Property\InvalidSourceException
+     * @throws \Mrself\Property\InvalidTargetException
+     * @throws \Mrself\Property\NonValuePathException
+     * @throws \Mrself\Property\NonexistentKeyException
+     */
+    public function testExceptionIsThrownIfMappingIsMissingAndGetMethodDoesNotExist()
+    {
+        $target = [];
+        $source = (object) ['a' => 1];
+        $sync = new class extends Sync {
+        };
+        $sync->init(compact('target', 'source'));
+        $sync->sync();
+    }
+
+    public function testMappingIsMadeFromSourceKeysIfSourceIsArray()
+    {
+        $target = [];
+        $source = ['a' => 1];
+        $sync = new class extends Sync {
+        };
+        $sync->init(compact('target', 'source'));
+        $this->assertEquals(1, $sync->sync()['a']);
+    }
+
     public function testItIgnoreMissedIfSuchOptionIsSet()
     {
         $target = (object) [];

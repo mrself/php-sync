@@ -8,6 +8,7 @@ use Mrself\DataTransformers\DataTransformers;
 use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
 use Mrself\Property\Property;
+use function PHPSTORM_META\map;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -302,6 +303,12 @@ class Sync
                 $this->mapping = $this->getMapping();
             } else {
                 throw new \RuntimeException('#getMapping() exists but mapping was also given through options. Do not use both ways.');
+            }
+        } elseif (!$this->mapping) {
+            if (is_array($this->source)) {
+                $this->mapping = array_keys($this->source);
+            } else {
+                throw new \RuntimeException('Can not define mapping. Use "mapping" option or define #getMapping');
             }
         }
     }
