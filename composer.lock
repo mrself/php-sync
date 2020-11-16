@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3825aa0c842bf8a1e6e0fc5af4aba70d",
+    "content-hash": "850ce795c892dec772344222d010c1db",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -280,16 +280,16 @@
         },
         {
             "name": "mrself/property",
-            "version": "v1.6.0",
+            "version": "v1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-property.git",
-                "reference": "7b285888f86abbd8b210001c6f570533b836272f"
+                "reference": "9d0bb1e473faf6b46942772e181e352459e2336b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-property/zipball/7b285888f86abbd8b210001c6f570533b836272f",
-                "reference": "7b285888f86abbd8b210001c6f570533b836272f",
+                "url": "https://api.github.com/repos/mrself/php-property/zipball/9d0bb1e473faf6b46942772e181e352459e2336b",
+                "reference": "9d0bb1e473faf6b46942772e181e352459e2336b",
                 "shasum": ""
             },
             "require": {
@@ -311,7 +311,11 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2020-06-17T08:06:26+00:00"
+            "support": {
+                "issues": "https://github.com/mrself/php-property/issues",
+                "source": "https://github.com/mrself/php-property/tree/v1.6.1"
+            },
+            "time": "2020-11-16T16:21:02+00:00"
         },
         {
             "name": "mrself/util",
@@ -2338,5 +2342,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }

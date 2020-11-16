@@ -14,7 +14,7 @@
     "symfony/validator": "^4.2",
     "mrself/data-transformers": "^1.1",
     "mrself/util": "^1.12",
-    "mrself/property": "^1.6",
+    "mrself/property": "^1.6.1",
     "mrself/options": "^2.15.2"
   },
   "require-dev": {
