@@ -3,13 +3,25 @@
 namespace Mrself\Sync;
 
 use Mrself\Container\Container;
-use Mrself\Container\Registry\ContainerRegistry;
+use Mrself\Container\ServiceProvider;
+use Mrself\Property\PropertyProvider;
 
-class SyncProvider
+class SyncProvider extends ServiceProvider
 {
-    public function boot()
+    protected function getContainer(): Container
     {
-        $container = Container::make();
-        ContainerRegistry::add('Mrself\\Sync', $container);
+        return Container::make();
+    }
+
+    protected function getNamespace(): string
+    {
+        return 'Mrself\\Sync';
+    }
+
+    protected function getDependentProviders(): array
+    {
+        return [
+            PropertyProvider::class
+        ];
     }
 }

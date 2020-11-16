@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "656e65ed5fe8b7fc47f65ae249242117",
+    "content-hash": "3825aa0c842bf8a1e6e0fc5af4aba70d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -130,21 +130,21 @@
         },
         {
             "name": "icanboogie/inflector",
-            "version": "v1.4.4",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ICanBoogie/Inflector.git",
-                "reference": "a875d3c16215327e1a2555592b167ae2591c5c2f"
+                "reference": "9fa7e8fcf7a6ac06257ae77e9aa2ec90925b4327"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ICanBoogie/Inflector/zipball/a875d3c16215327e1a2555592b167ae2591c5c2f",
-                "reference": "a875d3c16215327e1a2555592b167ae2591c5c2f",
+                "url": "https://api.github.com/repos/ICanBoogie/Inflector/zipball/9fa7e8fcf7a6ac06257ae77e9aa2ec90925b4327",
+                "reference": "9fa7e8fcf7a6ac06257ae77e9aa2ec90925b4327",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": ">=5.3.4"
+                "php": ">=7.1"
             },
             "type": "library",
             "autoload": {
@@ -178,20 +178,20 @@
                 "singularize",
                 "underscore"
             ],
-            "time": "2017-06-30T13:16:14+00:00"
+            "time": "2019-10-04T09:43:33+00:00"
         },
         {
             "name": "mrself/container",
-            "version": "v1.3.0",
+            "version": "v1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-container.git",
-                "reference": "b6777b253dcfea288a0483d86fed0e11f1d3e0cc"
+                "reference": "491499fd711a39949f5dc3dd926f9d2731a3697c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-container/zipball/b6777b253dcfea288a0483d86fed0e11f1d3e0cc",
-                "reference": "b6777b253dcfea288a0483d86fed0e11f1d3e0cc",
+                "url": "https://api.github.com/repos/mrself/php-container/zipball/491499fd711a39949f5dc3dd926f9d2731a3697c",
+                "reference": "491499fd711a39949f5dc3dd926f9d2731a3697c",
                 "shasum": ""
             },
             "require": {
@@ -208,7 +208,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-02-03T15:07:19+00:00"
+            "time": "2020-03-15T20:27:03+00:00"
         },
         {
             "name": "mrself/data-transformers",
@@ -244,26 +244,28 @@
         },
         {
             "name": "mrself/options",
-            "version": "v2.7.1",
+            "version": "v2.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-options.git",
-                "reference": "684c96b0299428df0bbc8d6f182c8b838700d90d"
+                "reference": "7c376d0e90522c49c073a5217b1bc109758a3657"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-options/zipball/684c96b0299428df0bbc8d6f182c8b838700d90d",
-                "reference": "684c96b0299428df0bbc8d6f182c8b838700d90d",
+                "url": "https://api.github.com/repos/mrself/php-options/zipball/7c376d0e90522c49c073a5217b1bc109758a3657",
+                "reference": "7c376d0e90522c49c073a5217b1bc109758a3657",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "^1.6",
-                "mrself/container": "1.3.0",
+                "ext-memcached": "*",
+                "mrself/container": "*",
                 "mrself/util": "^1.5.0",
                 "php-di/phpdoc-reader": "^2.1",
                 "symfony/options-resolver": "^4.2"
             },
             "require-dev": {
+                "phpbench/phpbench": "^1.0@dev",
                 "phpunit/phpunit": "^7.5",
                 "symfony/var-dumper": "^4.2"
             },
@@ -274,27 +276,28 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-05-26T16:32:34+00:00"
+            "time": "2020-04-13T14:18:51+00:00"
         },
         {
             "name": "mrself/property",
-            "version": "v1.4.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-property.git",
-                "reference": "acbd775b3a0a7cf7fc285f04348e97d80c6f621d"
+                "reference": "7b285888f86abbd8b210001c6f570533b836272f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-property/zipball/acbd775b3a0a7cf7fc285f04348e97d80c6f621d",
-                "reference": "acbd775b3a0a7cf7fc285f04348e97d80c6f621d",
+                "url": "https://api.github.com/repos/mrself/php-property/zipball/7b285888f86abbd8b210001c6f570533b836272f",
+                "reference": "7b285888f86abbd8b210001c6f570533b836272f",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "icanboogie/inflector": "^1.4",
+                "mrself/container": "^1.9",
                 "mrself/data-transformers": "^1.0",
-                "mrself/options": "^2.7",
+                "mrself/options": "^2.15.2",
+                "mrself/util": "^1.12",
                 "php": "^7.2"
             },
             "require-dev": {
@@ -308,28 +311,31 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-05-26T13:44:51+00:00"
+            "time": "2020-06-17T08:06:26+00:00"
         },
         {
             "name": "mrself/util",
-            "version": "v1.5.0",
+            "version": "v1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-util.git",
-                "reference": "6c41dd632c6de0e1239dbd37a61d5e306448f231"
+                "reference": "99f56d9989f013a085e646a553e30ab1736a77e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-util/zipball/6c41dd632c6de0e1239dbd37a61d5e306448f231",
-                "reference": "6c41dd632c6de0e1239dbd37a61d5e306448f231",
+                "url": "https://api.github.com/repos/mrself/php-util/zipball/99f56d9989f013a085e646a553e30ab1736a77e9",
+                "reference": "99f56d9989f013a085e646a553e30ab1736a77e9",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
+                "icanboogie/inflector": "^2.0",
                 "php": "^7.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.5"
+                "phpbench/phpbench": "@dev",
+                "phpunit/phpunit": "^7.5",
+                "symfony/var-dumper": "^4.2"
             },
             "type": "library",
             "autoload": {
@@ -338,20 +344,20 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-02-02T16:47:24+00:00"
+            "time": "2020-06-17T05:44:20+00:00"
         },
         {
             "name": "php-di/phpdoc-reader",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-DI/PhpDocReader.git",
-                "reference": "7d0de60b9341933c8afd172a6255cd7557601e0e"
+                "reference": "15678f7451c020226807f520efb867ad26fbbfcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-DI/PhpDocReader/zipball/7d0de60b9341933c8afd172a6255cd7557601e0e",
-                "reference": "7d0de60b9341933c8afd172a6255cd7557601e0e",
+                "url": "https://api.github.com/repos/PHP-DI/PhpDocReader/zipball/15678f7451c020226807f520efb867ad26fbbfcf",
+                "reference": "15678f7451c020226807f520efb867ad26fbbfcf",
                 "shasum": ""
             },
             "require": {
@@ -375,7 +381,7 @@
                 "phpdoc",
                 "reflection"
             ],
-            "time": "2018-02-18T17:39:01+00:00"
+            "time": "2019-09-26T11:24:58+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -447,16 +453,16 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v4.2.3",
+            "version": "v4.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb"
+                "reference": "73e1d0fe11ffceb7b7d4ca55b7381cd7ce0bac05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/831b272963a8aa5a0613a1a7f013322d8161bbbb",
-                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/73e1d0fe11ffceb7b7d4ca55b7381cd7ce0bac05",
+                "reference": "73e1d0fe11ffceb7b7d4ca55b7381cd7ce0bac05",
                 "shasum": ""
             },
             "require": {
@@ -465,7 +471,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -497,7 +503,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2019-01-16T21:31:25+00:00"
+            "time": "2020-05-23T12:09:32+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",

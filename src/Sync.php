@@ -2,13 +2,12 @@
 
 namespace Mrself\Sync;
 
-use ICanBoogie\Inflector;
 use Mrself\Container\Registry\ContainerRegistry;
 use Mrself\DataTransformers\DataTransformers;
 use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
 use Mrself\Property\Property;
-use function PHPSTORM_META\map;
+use Mrself\Util\StringUtil;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -56,11 +55,6 @@ class Sync
 	protected $validator;
 
     /**
-     * @var Inflector
-     */
-	protected $inflector;
-
-    /**
      * @var Property
      */
 	protected $property;
@@ -93,7 +87,6 @@ class Sync
     public function __construct()
     {
         $this->property = Property::make();
-        $this->inflector = Inflector::get();
 	}
 
 	protected function getOptionsSchema()
@@ -202,7 +195,7 @@ class Sync
         $targetKey = $keyTo;
         $this->formatKeys($keyTo, $keyFrom);
         if (!$this->property->canGet($this->source, $keyFrom)) {
-            $defaultMethod = 'getDefault' . $this->inflector->camelize($keyTo);
+            $defaultMethod = 'getDefault' . StringUtil::camelize($keyTo);
             if (method_exists($this, $defaultMethod)) {
                 $value = $this->$defaultMethod();
             } elseif ($this->ignoreMissed) {
@@ -216,7 +209,7 @@ class Sync
 
         $keyTo = $this->formatEachKey($keyTo);
         $this->formatEach($keyTo, $value);
-        $formatMethod = 'format' . $this->inflector->camelize($keyTo);
+        $formatMethod = 'format' . StringUtil::camelize($keyTo);
         if (method_exists($this, $formatMethod)) {
             $value = $this->$formatMethod($value);
         }

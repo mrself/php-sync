@@ -2,7 +2,9 @@
 
 namespace Mrself\Sync\Tests;
 
+use Mrself\Container\Registry\ContainerRegistry;
 use Mrself\Sync\Sync;
+use Mrself\Sync\SyncProvider;
 use PHPUnit\Framework\TestCase;
 
 class MetaTest extends TestCase
@@ -24,5 +26,12 @@ class MetaTest extends TestCase
         ));
         $sync->sync();
         $this->assertEquals('b', $sync->getTarget()['b']);
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        ContainerRegistry::reset();
+        SyncProvider::make()->register();
     }
 }

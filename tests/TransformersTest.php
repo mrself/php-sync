@@ -2,9 +2,9 @@
 
 namespace Mrself\Sync\Tests;
 
-use Mrself\Container\Container;
 use Mrself\Container\Registry\ContainerRegistry;
 use Mrself\Sync\Sync;
+use Mrself\Sync\SyncProvider;
 use PHPUnit\Framework\TestCase;
 
 class TransformersTest extends TestCase
@@ -41,7 +41,6 @@ class TransformersTest extends TestCase
     {
         parent::setUp();
         ContainerRegistry::reset();
-        $container = Container::make();
-        ContainerRegistry::add('Mrself\\Sync', $container);
+        SyncProvider::make()->register();
     }
 }
