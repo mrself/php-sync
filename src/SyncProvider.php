@@ -4,6 +4,7 @@ namespace Mrself\Sync;
 
 use Mrself\Container\Container;
 use Mrself\Container\ServiceProvider;
+use Mrself\DataTransformers\DataTransformersProvider;
 use Mrself\Property\PropertyProvider;
 
 class SyncProvider extends ServiceProvider
@@ -21,14 +22,16 @@ class SyncProvider extends ServiceProvider
     protected function getDependentProviders(): array
     {
         return [
-            PropertyProvider::class
+            PropertyProvider::class,
+            DataTransformersProvider::class
         ];
     }
 
     protected function getFallbackContainers(): array
     {
         return [
-            'Mrself\Property'
+            'Mrself\Property',
+            'Mrself\DataTransformers',
         ];
     }
 }

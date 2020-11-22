@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b30923968b7f753aa9d3657ecc0112ea",
+    "content-hash": "0bd1bfae8df4aaacc1144cd256ebfcee",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -254,21 +254,21 @@
         },
         {
             "name": "mrself/data-transformers",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-data-transformers.git",
-                "reference": "a3e489f0c3835b1279f10bb0f7d977c7a2d6a872"
+                "reference": "880808a72da3d5ddb12e0210005d40b3fddd2cbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-data-transformers/zipball/a3e489f0c3835b1279f10bb0f7d977c7a2d6a872",
-                "reference": "a3e489f0c3835b1279f10bb0f7d977c7a2d6a872",
+                "url": "https://api.github.com/repos/mrself/php-data-transformers/zipball/880808a72da3d5ddb12e0210005d40b3fddd2cbe",
+                "reference": "880808a72da3d5ddb12e0210005d40b3fddd2cbe",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "mrself/options": "^2.19.2",
+                "mrself/options": "^2.19.5",
                 "php": ">=7.2"
             },
             "require-dev": {
@@ -284,9 +284,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "support": {
                 "issues": "https://github.com/mrself/php-data-transformers/issues",
-                "source": "https://github.com/mrself/php-data-transformers/tree/v1.1.1"
+                "source": "https://github.com/mrself/php-data-transformers/tree/v1.2.0"
             },
-            "time": "2020-11-17T17:57:42+00:00"
+            "time": "2020-11-22T22:13:35+00:00"
         },
         {
             "name": "mrself/options",

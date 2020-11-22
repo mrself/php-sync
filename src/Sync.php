@@ -71,6 +71,7 @@ class Sync
 	protected $ignoreMissed;
 
     /**
+     * @Option()
      * @var DataTransformers
      */
 	protected $dataTransformers;
@@ -300,11 +301,6 @@ class Sync
                 throw new \RuntimeException('Can not define mapping. Use "mapping" option or define #getMapping');
             }
         }
-    }
-
-    protected function onInit()
-    {
-        $this->dataTransformers = DataTransformers::make();
     }
 
     /**
