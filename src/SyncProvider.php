@@ -24,4 +24,11 @@ class SyncProvider extends ServiceProvider
             PropertyProvider::class
         ];
     }
+
+    protected function getFallbackContainers(): array
+    {
+        return [
+            'Mrself\Property'
+        ];
+    }
 }

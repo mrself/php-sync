@@ -34,7 +34,7 @@ class SyncTest extends TestCase
         $target = [];
         $source = ['a' => 1];
         $mapping = ['a'];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
             public function formatA($value)
             {
                 return $value + 1;
@@ -50,7 +50,7 @@ class SyncTest extends TestCase
         $target = [];
         $source = ['a' => 1];
         $mapping = ['a'];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
             public $a;
 
             protected function onSync()
@@ -68,7 +68,7 @@ class SyncTest extends TestCase
         $target = [];
         $source = ['a' => 1];
         $mapping = ['a'];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
             protected function formatEach(string &$key, &$value)
             {
                 $key = 'b';
@@ -85,7 +85,7 @@ class SyncTest extends TestCase
         $target = [];
         $source = ['a' => 1];
         $mapping = ['a'];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
             protected function formatEachKey(string $key)
             {
                 return 'b';
@@ -175,7 +175,7 @@ class SyncTest extends TestCase
     {
         $target = [];
         $source = ['a' => 1];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
             public function getMapping()
             {
                 return ['a'];
@@ -194,7 +194,7 @@ class SyncTest extends TestCase
         $target = [];
         $source = ['a' => 1];
         $mapping = ['a'];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
             public function getMapping()
             {
                 return ['a'];
@@ -220,7 +220,7 @@ class SyncTest extends TestCase
     {
         $target = [];
         $source = (object) ['a' => 1];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
         };
         $sync->init(compact('target', 'source'));
         $sync->sync();
@@ -230,7 +230,7 @@ class SyncTest extends TestCase
     {
         $target = [];
         $source = ['a' => 1];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
         };
         $sync->init(compact('target', 'source'));
         $this->assertEquals(1, $sync->sync()['a']);
@@ -245,7 +245,7 @@ class SyncTest extends TestCase
         };
         $mapping = ['a', 'b'];
         $ignoreMissed = true;
-        $sync = new class extends Sync {};
+        $sync = new class extends SyncMock {};
         $sync->init(compact('target', 'source', 'mapping', 'ignoreMissed'));
         $sync->sync();
         $this->assertEquals(1, $target->a);
@@ -256,7 +256,7 @@ class SyncTest extends TestCase
         $target = [];
         $source = ['a' => 1];
         $mapping = [];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
             public function getMapping()
             {
                 return ['a'];
@@ -280,7 +280,7 @@ class SyncTest extends TestCase
     {
         $source = [];
         $mapping = ['a'];
-        $sync = new class extends Sync {
+        $sync = new class extends SyncMock {
             public function getDefaultA()
             {
                 return 1;
@@ -295,7 +295,8 @@ class SyncTest extends TestCase
     {
         parent::setUp();
         ContainerRegistry::reset();
-        SyncProvider::make()->register();
+        $provider = SyncProvider::make();
+        $provider->registerAndBoot();
     }
 
     protected function addValidator()
@@ -308,4 +309,8 @@ class SyncTest extends TestCase
             $validator
         );
     }
+}
+
+class SyncMock extends Sync {
+    protected $optionsContainerNamespace = 'Mrself\\Sync';
 }

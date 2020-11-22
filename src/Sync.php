@@ -55,6 +55,7 @@ class Sync
 	protected $validator;
 
     /**
+     * @Option()
      * @var Property
      */
 	protected $property;
@@ -83,11 +84,6 @@ class Sync
      * @var mixed
      */
 	protected $originalSource;
-
-    public function __construct()
-    {
-        $this->property = Property::make();
-	}
 
 	protected function getOptionsSchema()
     {
