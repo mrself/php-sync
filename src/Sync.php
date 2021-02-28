@@ -8,6 +8,8 @@ use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
 use Mrself\Property\Property;
 use Mrself\Util\StringUtil;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -86,7 +88,23 @@ class Sync
      */
 	protected $originalSource;
 
-	protected function getOptionsSchema()
+    /**
+     * @Option(required=false)
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
+     * @var string
+     */
+    private $targetName;
+
+    /**
+     * @var string
+     */
+    private $sourceName;
+
+    protected function getOptionsSchema()
     {
         return [
             'allowedTypes' => [
@@ -116,6 +134,10 @@ class Sync
      */
     public function sync()
     {
+        $this->targetName = $this->targetToName();
+        $this->sourceName = $this->sourceToName();
+
+        $this->logStart();
         $this->beforeSync();
         $this->defineMapping();
         $this->parseMapping();
@@ -124,8 +146,48 @@ class Sync
         $this->onSync();
         $this->validate();
         $this->onValidate();
+        $this->logCompleted();
         return $this->target;
 	}
+
+    protected function logStart()
+    {
+        $this->logBase('Start to sync');
+	}
+
+    protected function logCompleted()
+    {
+        $this->logBase('Completed syncing');
+	}
+
+    protected function logBase(string $action)
+	{
+	    if (!$this->sourceName || !$this->targetName) {
+	        return;
+        }
+
+        $this->debug($action . ' fields from "' . $this->sourceToName() . '" with "' . $this->targetToName() . '".', [
+            'from' => $this->sourceToName(),
+            'to' => $this->targetToName()
+        ]);
+	}
+
+    protected function debug(string $message, array $context = [])
+    {
+        if ($this->logger) {
+            $this->logger->debug($message, $context);
+        }
+	}
+
+    protected function sourceToName(): ?string
+    {
+        return null;
+    }
+
+    protected function targetToName(): ?string
+    {
+        return null;
+    }
 
     protected function beforeSync()
     {
