@@ -11,7 +11,7 @@
     }
   },
   "require": {
-    "symfony/validator": ">=4.4",
+    "symfony/validator": "^5.2",
     "mrself/data-transformers": "^1.2",
     "mrself/util": "^1.12",
     "mrself/property": "^1.7",
